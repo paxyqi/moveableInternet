@@ -1,4 +1,6 @@
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 28
@@ -33,4 +35,8 @@ dependencies {
     // 这里添加了对话框库，用来输入时长
     // https://github.com/afollestad/material-dialogs
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk7:$kotlin_version"
+}
+repositories {
+    mavenCentral()
 }

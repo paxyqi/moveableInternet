@@ -36,7 +36,9 @@ public class Ch3Ex3Activity extends AppCompatActivity {
                 else
                     data.putStringArray("data", new String[]{
                             "丘丘",
-                            "老方"
+                            "我想你",
+                            "也好喜欢你",
+                            "可我不能告诉你"
                     });
                 PlaceholderFragment toReturn = new PlaceholderFragment();
                 toReturn.setArguments(data);
