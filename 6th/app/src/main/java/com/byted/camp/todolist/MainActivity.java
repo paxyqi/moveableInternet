@@ -27,6 +27,7 @@ import com.byted.camp.todolist.operation.activity.DebugActivity;
 import com.byted.camp.todolist.operation.activity.SettingActivity;
 import com.byted.camp.todolist.ui.NoteListAdapter;
 
+import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -136,8 +137,10 @@ public class MainActivity extends AppCompatActivity {
         while (cursor.moveToNext()){
             Note note = new Note(cursor.getInt(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_ID)));
             SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd HH:mm");
-            int time = cursor.getInt(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_DATE));
-            note.setDate(new Date(time));
+            ParsePosition pos = new ParsePosition(0);
+            String time = cursor.getString(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_DATE));
+            Date date = format.parse(time, pos);
+            note.setDate(date);
             note.setContent(cursor.getString(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_CONTENT)));
             note.setState(State.values()[cursor.getInt(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_STATE))]);
             note.setPriority(Note.Priority.values()[cursor.getInt(cursor.getColumnIndex(TodoContract.TodoEntry.COLUMN_NAME_PRIORITY))]);
