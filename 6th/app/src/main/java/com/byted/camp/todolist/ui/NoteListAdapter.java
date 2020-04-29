@@ -11,6 +11,7 @@ import com.byted.camp.todolist.R;
 import com.byted.camp.todolist.beans.Note;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -31,6 +32,7 @@ public class NoteListAdapter extends RecyclerView.Adapter<NoteViewHolder> {
         notes.clear();
         if (newNotes != null) {
             notes.addAll(newNotes);
+            Collections.sort(notes);
         }
         notifyDataSetChanged();
     }

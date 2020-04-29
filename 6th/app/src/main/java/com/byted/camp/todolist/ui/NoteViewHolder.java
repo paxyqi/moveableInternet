@@ -48,7 +48,7 @@ public class NoteViewHolder extends RecyclerView.ViewHolder {
         contentText.setText(note.getContent());
         switch (note.getPriority()) {
             case NORMAL:
-                itemView.setBackgroundColor(Color.argb(100, 255, 250, 205));
+                itemView.setBackgroundColor(Color.argb(100, 240, 230, 140));
                 break;
             case HIGHER:
                 itemView.setBackgroundColor(Color.argb(100, 255, 215, 0));

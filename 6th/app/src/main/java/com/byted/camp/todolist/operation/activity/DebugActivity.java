@@ -64,30 +64,42 @@ public class DebugActivity extends AppCompatActivity {
 
         final Button fileWriteBtn = findViewById(R.id.btn_write_files);
         final TextView fileText = findViewById(R.id.text_files);
-        fileWriteBtn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // TODO 把一段文本写入某个存储区的文件中，再读出来，显示在 fileText 上
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
-                        File file = new File(dir, "test");
-                        FileUtils.writeContentToFile(file, "#title \n0727.");
-                        final List<String> contents = FileUtils.readContentFromFile(file);
-                        DebugActivity.this.runOnUiThread(new Runnable() {
-                            @Override
-                            public void run() {
-                                fileText.setText("");
-                                for (String content : contents) {
-                                    fileText.append(content + "\n");
-                                }
-                            }
-                        });
-                    }
-                }).start();
-            }
-        });
+//        fileWriteBtn.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                // TODO 把一段文本写入某个存储区的文件中，再读出来，显示在 fileText 上
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        File dir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS);
+//                        File file = new File(dir, "test");
+//                        FileUtils.writeContentToFile(file, "#title \n0727.");
+//                        final List<String> contents = FileUtils.readContentFromFile(file);
+//                        DebugActivity.this.runOnUiThread(new Runnable() {
+//                            @Override
+//                            public void run() {
+//                                fileText.setText("");
+//                                for (String content : contents) {
+//                                    fileText.append(content + "\n");
+//                                }
+//                            }
+//                        });
+//                    }
+//                }).start();
+//            }
+//        });
+        fileWriteBtn.setOnClickListener(v -> new Thread(() -> {
+            File dir = getExternalFilesDir(Environment.DIRECTORY_DOCUMENTS);
+            File file = new File(dir, "test.txt");
+            FileUtils.writeContentToFile(file, "1229-0727");
+            final List<String> contents = FileUtils.readContentFromFile(file);
+            DebugActivity.this.runOnUiThread(() -> {
+                fileText.setText("");
+                for (String content : contents) {
+                    fileText.append(content + "\n");
+                }
+            });
+        }).start());
 
     }
 

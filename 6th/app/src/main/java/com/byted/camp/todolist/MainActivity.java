@@ -51,14 +51,17 @@ public class MainActivity extends AppCompatActivity {
         todoDbHelper = new TodoDbHelper(this);
 
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                startActivityForResult(
-                        new Intent(MainActivity.this, NoteActivity.class),
-                        REQUEST_CODE_ADD);
-            }
-        });
+//        fab.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                startActivityForResult(
+//                        new Intent(MainActivity.this, NoteActivity.class),
+//                        REQUEST_CODE_ADD);
+//            }
+//        });
+        fab.setOnClickListener(view -> startActivityForResult(
+                new Intent(MainActivity.this, NoteActivity.class),
+                REQUEST_CODE_ADD));
 
         recyclerView = findViewById(R.id.list_todo);
         recyclerView.setLayoutManager(new LinearLayoutManager(this,
@@ -119,7 +122,9 @@ public class MainActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == REQUEST_CODE_ADD
                 && resultCode == Activity.RESULT_OK) {
-            notesAdapter.refresh(loadNotesFromDatabase());
+            //notesAdapter.refresh(loadNotesFromDatabase());
+            noteList = loadNotesFromDatabase();
+            notesAdapter.refresh(noteList);
         }
     }
 
@@ -146,7 +151,7 @@ public class MainActivity extends AppCompatActivity {
         SQLiteDatabase db =todoDbHelper.getWritableDatabase();
         db.delete(TodoContract.TodoEntry.TABLE_NAME, "id=?", new String[]{String.valueOf(note.id)});
         noteList.remove(note);
-        Toast.makeText(this, "Note deleted", Toast.LENGTH_LONG).show();
+        Toast.makeText(this, "Note deleted", Toast.LENGTH_SHORT).show();
         notesAdapter.refresh(noteList);
 
     }

@@ -17,7 +17,7 @@ public class TodoDbHelper extends SQLiteOpenHelper {
 
 
     public TodoDbHelper(Context context) {
-        super(context, "todo", null, DATABASE_VERSION);
+        super(context, DATABASE_NAME, null, DATABASE_VERSION);
     }
 
     @Override
